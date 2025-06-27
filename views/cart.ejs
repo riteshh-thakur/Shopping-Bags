@@ -1,0 +1,68 @@
+<%- include('./partials/header') %>
+
+<% user.cart.forEach(function(item){ %>
+<div class="w-full min-h-screen flex flex-col md:flex-row items-start px-6 md:px-20 py-10 md:py-20 gap-10">
+    
+    <!-- Left Panel - Product Card -->
+    <div class="md:w-[35%] w-full rounded-xl overflow-hidden shadow-lg border">
+        <div class="w-full flex justify-center items-center h-80 bg-[<%= item.bgcolor %>]">
+            <img class="h-[18rem] object-contain" src="data:image/jpeg;base64, <%= item.image.toString('base64') %>" alt="Product Image" />
+        </div>
+
+        <div class="w-full flex justify-between items-center px-5 py-4 bg-[<%= item.panelcolor %>]">
+            <h3 class="text-2xl font-semibold text-white">Clinge Bag</h3>
+            <div class="flex items-center gap-2 text-black">
+                <button class="w-8 h-8 bg-white flex items-center justify-center rounded-full shadow hover:bg-gray-200">
+                    <i class="ri-subtract-line text-lg"></i>
+                </button>
+                <div class="px-3 py-1 bg-white rounded-md font-medium">01</div>
+                <button class="w-8 h-8 bg-white flex items-center justify-center rounded-full shadow hover:bg-gray-200">
+                    <i class="ri-add-line text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="flex text-white items-center justify-between px-5 py-3 bg-[<%= item.textcolor %>]">
+            <h4 class="text-lg font-medium">Net Total</h4>
+            <h2 class="text-lg font-semibold">₹ <%= bill %></h2>
+        </div>
+    </div>
+
+    <!-- Right Panel - Price Breakdown -->
+    <div class="md:w-[65%] w-full">
+        <h3 class="text-2xl font-semibold mb-5">Price Breakdown</h3>
+        <div class="bg-white px-5 py-4 rounded-lg shadow space-y-4 text-base">
+            <div class="flex justify-between">
+                <span>Total MRP</span>
+                <span>₹ <%= item.price %></span>
+            </div>
+            <div class="flex justify-between">
+                <span>Discount on MRP</span>
+                <span class="text-green-600">- ₹ <%= Number(item.discount) %></span>
+            </div>
+            <div class="flex justify-between">
+                <span>Platform Fee</span>
+                <span>₹ 20</span>
+            </div>
+            <div class="flex justify-between">
+                <span>Shipping Fee</span>
+                <span class="text-green-600">FREE</span>
+            </div>
+            <div class="border-t pt-4 flex justify-between font-semibold text-lg">
+                <span>Total Amount</span>
+                <span class="text-green-700">₹ <%= bill %></span>
+            </div>
+        </div>
+
+        <form action="" class="mt-8">
+            <!-- You can add buttons like checkout here -->
+            <button type="submit" class="px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700">
+                Proceed to Checkout
+            </button>
+        </form>
+    </div>
+
+</div>
+<% }) %>
+
+<%- include('./partials/footer') %>
