@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: project1-app
+    ports:
+      - "3000:3000"
+    environment:
+      - JWT_KEY=vsadvjnefvknsdjvasdv
+      - EXPRESS_SESSION_SECRET=nsjdfkbeirjkaakjdvsje
+      - MONGODB_URI=mongodb://mongo:27017/Project1
+    depends_on:
+      - mongo
+    networks:
+      - project-network
+    restart: always
+
+  mongo:
+    image: mongo:6
+    container_name: project1-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - project-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+volumes:
+  mongo-data:
+
+networks:
+  project-network:
+    driver: bridge
